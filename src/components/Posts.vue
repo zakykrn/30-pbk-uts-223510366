@@ -1,24 +1,23 @@
-<!-- Posts.vue -->
 <template>
-    <div>
-      <h1>{{ title }}</h1>
-      <div class="filter-container">
-        <select v-model="selectedUser" @change="fetchPosts" class="select-box">
-            <option value="">-- Pilih Pengguna --</option>
-            <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
-        </select>
-      </div>
-      <ul>
-        <li v-if="selectedUser" v-for="(post, index) in filteredPosts" :key="index" class="post-item">
-          <h3>{{ post.title }}</h3>
-          <p>{{ post.body }}</p>
-        </li>
-      </ul>
-      <slot :totalPosts="posts.length">
-        <p>Total Postingan: {{ posts.length }}</p>
-      </slot>
+  <div class="container">
+    <h4>{{ title }}</h4>
+    <div class="filter-container">
+      <select v-model="selectedUser" @change="fetchPosts" class="select-box">
+        <option value="">-- Pilih Pengguna --</option>
+        <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
+      </select>
     </div>
-  </template>
+    <ul class="post-list">
+      <li v-if="selectedUser" v-for="(post, index) in filteredPosts" :key="index" class="post-item">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.body }}</p>
+      </li>
+    </ul>
+    <slot :totalPosts="posts.length">
+      <p>Total Postingan: {{ posts.length }}</p>
+    </slot>
+  </div>
+</template>
   
   <script>
   export default {
@@ -73,6 +72,28 @@
     }
   }
   </script>
+
+<style scoped>
+.post-item {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.post-item h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.post-item p {
+  margin: 0;
+  color: #333;
+}
+</style>
+
   
   
   

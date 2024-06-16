@@ -1,49 +1,58 @@
 <template>
-  <div class="app">
-    <header class="header">
-      <nav class="navbar">
-        <ul>
-          <li><a href="#" @click="showTodos">Todos</a></li>
-          <li><a href="#" @click="showPosts">Post</a></li>
-        </ul>
-      </nav>
-    </header>
+  <q-layout view="hHh lpR fFf">
+    <q-header elevated>
+      <q-toolbar>
+        <q-toolbar-title>
+          <div class="text-h6">UAS ZAKY KURNIAWAN</div>
+        </q-toolbar-title>
+        <q-btn flat round dense icon="menu" @click="drawer = !drawer"></q-btn>
+      </q-toolbar>
+    </q-header>
 
-    <div v-if="showingTodos">
-      <Todos />
-    </div>
+    <q-drawer v-model="drawer" side="left" bordered>
+      <q-list>
+        <q-item to="/todos" tag="router-link" clickable v-ripple>
+          <q-item-section>
+            <q-item-label>Todos</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/posts" tag="router-link" clickable v-ripple>
+          <q-item-section>
+            <q-item-label>Posts</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/albums" tag="router-link" clickable v-ripple>
+          <q-item-section>
+            <q-item-label>Albums</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
 
-    <div v-if="showingPosts">
-      <Posts />
-    </div>
-  </div>
+    <q-page-container>
+      <router-view></router-view>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
-import Todos from './components/Todos.vue';
-import Posts from './components/Posts.vue';
+import { ref } from 'vue';
 
 export default {
-  components: {
-    Todos,
-    Posts
-  },
-  data() {
+  setup() {
+    const drawer = ref(false);
     return {
-      showingTodos: true,
-      showingPosts: false,
-    }
-  },
-  methods: {
-    showTodos() {
-      this.showingTodos = true;
-      this.showingPosts = false;
-    },
-    showPosts() {
-      this.showingTodos = false;
-      this.showingPosts = true;
-    },
-  },
+      drawer
+    };
+  }
 }
 </script>
 
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+</style>
